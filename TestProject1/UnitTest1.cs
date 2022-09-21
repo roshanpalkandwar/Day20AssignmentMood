@@ -22,5 +22,17 @@ namespace TestProject1
                 Console.WriteLine(actual);
             
         }
+        [TestMethod]
+        [TestCategory("SAD Mood")]
+        public void GivenMessageShouldReturnSad()
+        {
+          
+            AnalyzeMood mood = new AnalyzeMood("I am in SAD Mood");
+            string excepted = "sad";
+            var actual = mood.Mood();
+            Assert.AreEqual(excepted, actual);
+        }
+        
+        
     }
 }
