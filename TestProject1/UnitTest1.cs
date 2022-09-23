@@ -1,4 +1,5 @@
 using Day20AssignmentMood;
+using System;
 
 namespace TestProject1
 {
@@ -90,6 +91,41 @@ namespace TestProject1
             {
                 //Assert
                 Assert.AreEqual("Exception: constructor not found in the class", exception.Message);
+            }
+        }
+     
+        [TestMethod]
+        public void UC5GivenImproperClassName_ShouldThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Act
+
+                object result = MoodAnalayzerFacotry1.CreateMoodAnalyserObject("MoodAnalyzerProblemDifferent.MoodAnalyser", "MoodAnalyser", "happy");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                //Assert
+                Assert.AreEqual("Exception: class not found", exception.Message);
+            }
+        }
+        /// <summary>
+        /// UC 5.3 : Given an improper constructor name should throw mood analysis exception.
+        /// </summary>
+        [TestMethod]
+        public void UC5GivenImproperConstructorName_ShouldThrowMoodAnalysisException()
+        {
+            try
+            {
+                //Act
+
+                object result = MoodAnalayzerFacotry1.CreateMoodAnalyserObject("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyserDifferent", "happy");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                //Assert
+
+                Assert.AreEqual("Exception: constructor not found", exception.Message);
             }
         }
     }

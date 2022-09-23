@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Day20AssignmentMood
 {
-    public class MoodAnalyzerFactory
+    public class MoodAnalayzerFacotry1
     {
-      
-        public static object CreateMoodAnalyserObject(string className, string constructorName)
+        public static object CreateMoodAnalyserObject(string className, string constructorName, string message)
         {
             string pattern = @"." + constructorName + "$";
             var result = Regex.Match(className, pattern);
@@ -21,7 +20,15 @@ namespace Day20AssignmentMood
                 {
                     Assembly assembly = Assembly.GetExecutingAssembly();
                     Type moodAnalyserType = assembly.GetType(className);
-                    var res = Activator.CreateInstance(moodAnalyserType);
+                    object res;
+                    if (message == null)
+                    {
+                        res = Activator.CreateInstance(moodAnalyserType, null);
+                    }
+                    else
+                    {
+                        res = Activator.CreateInstance(moodAnalyserType, message);
+                    }
                     return res;
                 }
                 catch (ArgumentNullException)
@@ -31,14 +38,8 @@ namespace Day20AssignmentMood
             }
             else
             {
-                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Exception: constructor not found in the class");
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Exception: constructor not found");
             }
-        }
-
-        public static object CreateMoodAnalyserObject1(string v1, string v2, string v3)
-        {
-            throw new NotImplementedException();
         }
     }
 }
-
